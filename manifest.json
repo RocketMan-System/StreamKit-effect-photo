@@ -1,8 +1,8 @@
 {
     "name": {
-        "en": "StreamKit Effect Template",
-        "ru": "Шаблон эффекта для StreamKit",
-        "ua": "Шаблон ефекту для StreamKit"
+        "en": "Photo Flash",
+        "ru": "Фотовспышка",
+        "ua": "Фотоспалах"
     },
     "author": "RocketMan",
     "version": "1.0.0",

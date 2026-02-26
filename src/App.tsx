@@ -5,9 +5,7 @@ import {
 	TRIGGER_ID,
 } from "@rocketman-system/streamkit-widget-helper";
 
-const battaryIcon = require("./media/battary.svg").default;
-
-const audio = new Audio(require("./media/camera.mp3").default);
+const audio = new Audio(require('./media/photo.mp3').default);
 
 export const App = React.memo(() => {
 	const [loaded, setLoaded] = React.useState(false);
@@ -29,6 +27,17 @@ export const App = React.memo(() => {
 		 */
 		amount?: string;
 	}>();
+	const [flash, setFlash] = React.useState(false);
+
+    React.useEffect(() => {
+      const tm = setTimeout(() => {
+        setFlash(true);
+      }, 1100);
+
+      return () => {
+        clearTimeout(tm);
+      };
+    }, []);
 
 	React.useEffect(() => {
 		ApiRequest("GET", "private/effect/loadData", {
@@ -51,15 +60,8 @@ export const App = React.memo(() => {
 			audio.play();
 		};
 
-		const int = setInterval(() => {
-			if (audio.currentTime >= 16.0) {
-				audio.currentTime = 8.13;
-				audio.play();
-			}
-		}, 100);
 
 		return () => {
-			clearInterval(int);
 			audio.pause();
 		};
 	}, [loaded, data]);
@@ -67,49 +69,32 @@ export const App = React.memo(() => {
 	if (!loaded) return <></>;
 
 	return (
-		<div className="effectMain">
-			<div className="camera">
-				<div className="top">
-					<div>
-						<div className="circle" /> REC
-					</div>
-					<div></div>
-					<div>
-						LOW BATTERY <img src={battaryIcon} className={"batteryIcon"} />
-					</div>
-				</div>
-				<div>
-					<div></div>
-					<div>
-						<div className="overlay">
-							<div className="overlay-element top-left"></div>
-							<div className="overlay-element top-right"></div>
-							<div className="overlay-element bottom-left"></div>
-							<div className="overlay-element bottom-right"></div>
-						</div>
-					</div>
-					<div></div>
-				</div>
-				<div>
-					<div>
-						ISO 100
-						{data?.name && (
-							<>
-								<br />
-								{data.name}
-							</>
-						)}
-					</div>
-					<div></div>
-					<div>
-						{Math.floor((window.innerHeight + window.innerWidth) / 100)} Mbps
-						<br />
-						{window.innerHeight}x{window.innerWidth}
-						<br />
-						FPS 60
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+      <>
+        {!flash ? (
+          <div className={`photo`}>
+            <div className="container">
+              <div className="camera-top">
+                <div className="zoom"></div>
+                <div className="mode-changer"></div>
+                <div className="sides"></div>
+                <div className="range-finder"></div>
+                <div className="focus"></div>
+                <div className="red"></div>
+                <div className="view-finder"></div>
+                <div className="flash">
+                  <div className="light"></div>
+                </div>
+              </div>
+              <div className="camera-mid">
+                <div className="sensor"></div>
+                <div className="lens"></div>
+              </div>
+              <div className="camera-bottom"></div>
+            </div>
+          </div>
+        ) : (
+          <div className="photoFlash"></div>
+        )}
+      </>
+    );
 });
