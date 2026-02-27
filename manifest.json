@@ -4,13 +4,19 @@
         "ru": "Фотовспышка",
         "ua": "Фотоспалах"
     },
+    "description": {
+        "en": "There's a bird about to fly out, smile! 🤪 The chat will probably suffer too!",
+        "ru": "Сейчас вылетит птичка, улыбочку! 🤪 Возможно, чат тоже пострадает!",
+        "ua": "Зараз вилетить пташка, усміхнись! 🤪 Можливо, чат теж постраждає!"
+    },
     "author": "RocketMan",
     "version": "1.0.0",
     "type": "effect",
     "permissions": ["effectData"],
     "settings": {
+        "minSeconds": 5,
         "maxSeconds": 120,
         "volume": 70,
-        "defaultSeconds": 30
+        "defaultSeconds": 11
     }
 }
